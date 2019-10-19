@@ -1,0 +1,160 @@
+############
+## GitHub ## [Linux]
+############
+
+################################
+## 1. INSTALL & CONFIGURE GIT ##
+################################
+
+> sudo apt-get install git-all
+> git config --global user.name "[name]" # set the name you want attached to your commit transactions;
+> git config --global user.email "[email address]" # sets the email you want attached to your commit transactions;
+
+> git config --list |    
+                    | -> # give information about your configuration;
+> gedit .gitconfig  |
+
+############################
+## 2. CREATE REPOSITORIES ##
+############################
+
+> mkdir [project name]  
+> cd ./glowing-octo-adventure # sets new directory;
+> git init # creates a new local repository;
+
+######
+# or #
+######
+
+> git init [project name] # creates a new local repository with the specified name;
+
+########################################
+## 2*ALTERNATIVE* CREATE REPOSITORIES ##
+########################################
+
+> cd ./DS19-20
+> git clone https://github.com/vrpo/DSSC.git
+> cd ./glowing-octo-adventure
+
+#####################
+## 3. MAKE CHANGES ##
+#####################
+
+> git status # [RED FILES/GREEN FILES] lists all new or modified files to be commited;
+> git diff # if modified, shows file differences not yet staged;
+> git diff --staged # shows file differences staging and the last file version;
+
+> git add [file] # snapshots the file in preparation for versioning;
+> git add * # snapshots all the files in preparation for versioning;
+> git reset [file]; unstages the file, but preserve its contents;
+> git reset * # unstages all the files, but preserve their contents;
+
+> git commit -m "[descriptive message]" # records file snapshots permanently in version history;
+> git commit --amend -m "[descriptive message] # changes the message of the previous commit;
+
+############################################################
+# What if we have new file or changed file? You can either #
+# create a new commit or add these file(s) to old commit.  #
+############################################################
+
+> git add -A # snapshots files to the previous commit;
+> git commit --amend --no-edit # records file snapshots permanently in previous commit version history;
+
+> git log # shows all the commits alongside author and the commit message;
+
+##########################################
+# What if we want to delete a commit(s)? #
+##########################################
+
+git reset [git hash] # removes commit [git hash];
+git reset --soft [git hash] # removes all commits after commit [git hash] and will bring all changed code after that into the staging area;
+git reset --mixed [git hash] # removes all commits after commit [git hash] and will bring the changed code after that to the working area;
+git reset --hard [git hash] # removes all commits after commit [git hash] and will destroy all changed code after that;
+
+##########################
+## 4. GITHUB CONNECTION ##
+##########################
+
+> git remote add origin https://github.com/vrpo/DSSC.git # tells git on your machine to add this link to your project;
+> git remote -v # verifies the new remote URL;
+> git pull origin master # downloads the projects from the remote;
+> git push -u origin master # sends your project to the remote;
+
+#################
+## 5. BRANCHES ## - Git is all about commits. At any point in time, we are always in some branch.
+#################   A Git history is a series of commits linked together forming a chain. A branch
+                    nothing but that chain with a name. When we add new commit, it gets pushed to
+                    the top of that chain. But a branch does not have to remember all commits. It
+                    has to remember only last commit and then that commit is linked with another
+                    commit and so on.
+                    When we initialize a repository, master is the default branch without any commits.
+                    Once we make a commit, that commit becomes the HEAD. Once we start adding more
+                    commits, HEAD will point to whatever is at top of the chain and branch has only to
+                    remember that commit. 
+                    When we create a new branch, we are creating a new tuple with a branch name and a 
+                    commit. The commit for the new branch is taken from the last commit of another branch.
+                    If we are inside master branche and we instructed Git to create a new branch, Git will
+                    pick up last from master branch. Once we switch the branch, HEAD will point to the last
+                    commit of the current branch. 
+              
+> git branch -a # views all existing branches;
+> git branch # lists all local branches in the current repository;
+
+> git branch [branch-name] # creates new branch;
+> git checkout [branch-name] # switches to the specifies branch and updates the working directory;
+
+######
+# or #
+######
+
+> git checkout -b [branch-name] # creates and switches to a new branch and updates the working directory;
+
+> touch hello_octo_world.cpp
+> git add *
+> git commit -m "[descriptive message]"
+
+############################################################
+# Now, if we check the history of the new branch, we       #
+# will see a new commit at the top which will be the HEAD. # 
+############################################################
+
+> git push -u origin HEAD:[branch name] # sends your project to the remote branch which will be created if it doesn't exist;
+
+################################################################################
+# Let's say that continuous integration test on remote [branch name] ran       #
+# well and you now have to merge changes made in your [branch name] to the     #
+# master branch. Merging happens between two branches, technically, it careful #
+# mixing of commits of two branches.                                           #
+################################################################################
+
+> git checkout master
+> git pull 
+> git merge [branch name] # merges the [branch name] with the current branch;
+
+> git branch -d [branch name] # deletes specified branch;
+> git push --delete origin [branch name] # deletes remote specified branch;
+
+#########################
+## LINKS FOR MATERIALS ##
+#########################
+
+# Tutorial: Git for Absolutely Everyone
+https://thenewstack.io/tutorial-git-for-absolutely-everyone/
+
+# The Art of the Commit
+https://alistapart.com/article/the-art-of-the-commit/
+
+# 'Git' with the Program: Getting Started with GitHub
+https://thenewstack.io/git-with-the-program-getting-started-with-github/
+
+# Don't Mess with the Master: Working with Branches in Git and GitHub
+https://thenewstack.io/dont-mess-with-the-master-working-with-branches-in-git-and-github/
+
+# The Art of the Commit
+https://alistapart.com/article/the-art-of-the-commit/
+
+# Become a Git pro in just one blog. A thorough guide to Git architecture and command line interface
+https://itnext.io/become-a-git-pro-in-just-one-blog-a-thorough-guide-to-git-architecture-and-command-line-interface-93fbe9bdb395
+
+# GIT CHEAT SHEET
+https://github.github.com/training-kit/downloads/github-git-cheat-sheet.pdf
